@@ -25,22 +25,12 @@ def convertToWSLStyle(text): #character escape function
         r' '  :r'%20', 
         '\\\\':r'/',   
     }
-    text = text.decode('utf-8').encode('utf-8')
-    if '`' in text:
-        text = text.split('`')[1]         # drop role name
-    if '<' in text and '>' in text:
-        name, path = text.split('<')      # split name, path by "<"
-        path = path.split('>')[0]
-        name = re.sub(r'[ ]+$','', name)  # remove spaces before "<"
-    else:
-        name = text
-        path = name
- 
-    path = re.sub(r'%', r'%25', path)     # escape "%" character at first
-    for (reg, rep) in replaceDic.items(): # escape replaceDic characters
-        path = re.sub(reg, rep, path)
 
-    return "<a href=\"file:" + path + "\">" + name + "</a>"
+    text = re.sub(r'%', r'%25', text)     # escape "%" character at first
+    for (reg, rep) in replaceDic.items(): # escape replaceDic characters
+        text = re.sub(reg, rep, text)
+
+    return text
     
 
 """
@@ -51,7 +41,19 @@ def smblink_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     """
     Role to create link addresses.
     """
-    href = convertToWSLStyle(rawtext)
+    text = rawtext.decode('utf-8').encode('utf-8')
+    if '`' in text:
+        text = text.split('`')[1]         # drop role name
+    if '<' in text and '>' in text:
+        name, path = text.split('<')      # split name, path by "<"
+        path = path.split('>')[0]
+        name = re.sub(r'[ ]+$','', name)  # remove spaces before "<"
+    else:
+        name = text
+        path = name
+ 
+    #href = convertToWSLStyle(rawtext)
+    href = "<a href=\"file:" + convertToWSLStyle(path) + "\">" + name + "</a>"
     node = nodes.raw('', href, format='html')
     return [node], []
 
