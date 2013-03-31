@@ -1,7 +1,7 @@
 Metadata-Version: 1.0
 Name: sphinxcontrib-smblink
-Version: 0.1
-Summary: Sphinx Windows Share Links (WSL) extension
+Version: 0.2
+Summary: Sphinx Windows Share Links (WSL) role extension
 Home-page: https://github.com/goingmywaynet/sphinxcontrib-smblink.git
 Author: Joey Chen
 Author-email: joey-tech@goingmyway.net
@@ -18,13 +18,13 @@ Description: =========================
         Installation
         ============
         
-
         1. download packages from https://github.com/goingmywaynet/sphinxcontrib-smblink.git
-
+        
         2. ``pip install ./sphinxcontrib-smblink``
         
         .. note::
           ``pip install sphinxcontrib-smblink`` <- this is under construction
+        
         
         Configuration
         =============
@@ -43,8 +43,9 @@ Description: =========================
         
             :smblink:`\\Server\newfolder\to\path`
             :smblink:`folder <\\Server\newfolder\to\path>`
-
+        
         convert to ``file://Server/newfolder/to/path`` style
+        
         
         History
         =======

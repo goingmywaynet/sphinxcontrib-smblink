@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
+import sys
+sys.path.append('./sphinxcontrib')
 
 f = open('README', 'r')
 try:
@@ -12,7 +14,7 @@ requires = ['Sphinx>=0.6']
 
 setup(
     name='sphinxcontrib-smblink',
-    version='0.1',
+    version='0.2',
     url='https://github.com/goingmywaynet/sphinxcontrib-smblink.git',
     download_url='https://github.com/goingmywaynet/sphinxcontrib-smblink.git',
     license='BSD',
@@ -37,4 +39,5 @@ setup(
     include_package_data=True,
     install_requires=requires,
     namespace_packages=['sphinxcontrib'],
+    test_suite = "smblink_test.suite",
 )
