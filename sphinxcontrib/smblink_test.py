@@ -13,8 +13,11 @@ class TestSequenceFunctions(unittest.TestCase): #unittest.TestCaseのサブク�
   def test_convertToWSLStyle_simpleStr(self):
     chkList = [
         # [ input , output ]
-        [r'\\hoge\new\to\path',r'//hoge/new/to/path'],
+        [r'\\',r'//'],
         [r'\\path',r'//path'],
+        [r'\\hoge\new\to\path',r'//hoge/new/to/path'],
+        [r'\\hoge\space space\to\path',r'//hoge/space%20space/to/path'],
+        [r'\\hoge\n@ew\to\path',r'//hoge/n%40ew/to/path'],
       ]
     for chk in chkList:
       self.assertEqual( chk[1], smblink.convertToWSLStyle( chk[0] ) )
@@ -33,14 +36,14 @@ class TestSequenceFunctions(unittest.TestCase): #unittest.TestCaseのサブク�
     chkList = [
         # [ input , output ]
         [r':smblink:`\\path`', r'<a href="file://path">\\path</a>']
-        #,[r':smblink:`\\日本語ほげほげ`',r'<a href="file://日本語ほげほげ">\\日本語ほげほげ</a>'] 
+        ,[r':smblink:`\\日本語ほげほげ`',u'<a href="file://日本語ほげほげ">\\\\日本語ほげほげ</a>'] 
       ]
     for chk in chkList:
       print smblink.smblink_role('', chk[0], '','','','')[0][0].astext()
       self.assertEqual( chk[1] , 
           #smblink.smblink_role("smblink", rawtext, chk[0],'','','')[0][0].astext().encode('utf-8') )
           smblink.smblink_role("smblink", chk[0], '','','','')[0][0].astext() )
-      if verboseMode : print " Input  : "+chk[0]+"\n Assert : "+chk[1] + "\n ---- "
+      if verboseMode : print u" Input  : " + unicode(chk[0],'utf-8','ignore') + u"\n Assert : " + chk[1] + u"\n ---- "
 
 if __name__ == '__main__':
   unittest.main(verbosity=2)

@@ -41,7 +41,8 @@ def smblink_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     """
     Role to create link addresses.
     """
-    text = rawtext.decode('utf-8').encode('utf-8')
+    #text = rawtext.decode('utf-8').encode('utf-8')
+    text = unicode(rawtext,'utf-8','ignore')
     if '`' in text:
         text = text.split('`')[1]         # drop role name
     if '<' in text and '>' in text:
@@ -51,10 +52,8 @@ def smblink_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     else:
         name = text
         path = name
- 
-    #href = convertToWSLStyle(rawtext)
-    href = "<a href=\"file:" + convertToWSLStyle(path) + "\">" + name + "</a>"
-    node = nodes.raw('', href, format='html')
+    href = u"<a href=\"file:" + convertToWSLStyle(path) + u"\">" + name + u"</a>"
+    node = nodes.raw('', href, format='html') # japanease decode error !!
     return [node], []
 
 def setup(app):
