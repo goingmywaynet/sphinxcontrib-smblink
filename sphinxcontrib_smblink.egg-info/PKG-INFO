@@ -17,12 +17,9 @@ Description: =========================
         Installation
         ============
         
-        1. download packages from https://github.com/goingmywaynet/sphinxcontrib-smblink.git
+        ::
         
-        2. ``pip install ./sphinxcontrib-smblink``
-        
-        .. note::
-          ``pip install sphinxcontrib-smblink`` <- this is under construction
+            pip install sphinxcontrib-smblink
         
         
         Configuration
@@ -32,7 +29,7 @@ Description: =========================
         
           ::
         
-            extensions = [ 'sphinxcontrib.smblink' ]
+            extensions += [ 'sphinxcontrib.smblink' ]
         
         
         Usage
@@ -51,6 +48,9 @@ Description: =========================
         
         0.1
           Initial Version.
+        
+        0.2
+          PyPI registered
         
         
 Keywords: sphinx,sphinxcontrib,smb,windows,link,share
